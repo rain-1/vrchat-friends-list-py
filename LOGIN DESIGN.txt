@@ -1,0 +1,45 @@
+1.
+
+We need a log in page that handles a 2fa login flow.
+
+The pages should always forward the cookies to the API endpoints
+
+There should username and password fields.
+When the user puts in the data it should use the /auth/user 'api docs/login auth.txt'
+endpoint to go to the next step of the login flow.
+
+if we get a user object back, we are now logged in. display the object for the user.
+if not, we will get a 2fa request then we should present a 2fa text field for the user to use.
+
+they can then submit to the 'api docs/2fa.txt' endpoint
+
+
+2.
+
+Login failed. Status code: 403, Message: {"error":{"message":"\"please identify yourself with a properly formatted user-agent containing application name, version and contact information. thank you!\"","status_code":403,"waf_code":13799}}
+
+"rain-1 vrchat-friend-list v2"
+
+
+
+3.
+
+User Information
+
+        {'requiresTwoFactorAuth': ['totp', 'otp']}
+    
+
+logout 
+
+
+In the function login()
+
+if we get a status_code 200
+
+and the response JSON looks like this:
+{'requiresTwoFactorAuth': ['totp', 'otp']}
+(if it contains 'totp')
+
+then we should do the 2fa log in part. It's not a 401 that triggers that logic.
+
+

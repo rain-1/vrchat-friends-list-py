@@ -1,0 +1,19 @@
+Logout
+put /logout
+
+Invalidates the login session.
+API Key (auth)
+CODE SAMPLES
+
+curl -X PUT "https://api.vrchat.cloud/api/1/logout" \
+     -b "auth={authCookie}"
+
+
+	
+
+{
+"success": {
+"message": "Ok!",
+"status_code": 200
+}
+}
