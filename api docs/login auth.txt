@@ -1,0 +1,163 @@
+ authentication
+Login and/or Get Current User Info
+get /auth/user
+
+This endpoint does the following two operations:
+
+    Checks if you are already logged in by looking for a valid auth cookie. If you are have a valid auth cookie then no additional auth-related actions are taken. If you are not logged in then it will log you in with the Authorization header and set the auth cookie. The auth cookie will only be sent once.
+    If logged in, this function will also return the CurrentUser object containing detailed information about the currently logged in user.
+
+The auth string after Authorization: Basic {string} is a base64-encoded string of the username and password, both individually url-encoded, and then joined with a colon.
+
+    base64(urlencode(username):urlencode(password))
+
+WARNING: Session Limit: Each authentication with login credentials counts as a separate session, out of which you have a limited amount. Make sure to save and reuse the auth cookie if you are often restarting the program. The provided API libraries automatically save cookies during runtime, but does not persist during restart. While it can be fine to use username/password during development, expect in production to very fast run into the rate-limit and be temporarily blocked from making new sessions until older ones expire. The exact number of simultaneous sessions is unknown/undisclosed.
+HTTP Basic
+OR
+HTTP Basic + 1 more
+OR
+API Key (auth)
+CODE SAMPLES 
+
+curl -X GET "https://api.vrchat.cloud/api/1/auth/user" \
+     -H "Authorization: Basic {string}"
+
+RESPONSE HEADERS
+Set-Cookie 	string 	
+
+Successful authentication returns an auth cookie.
+	auth=authcookie_00000000-0000-0000-0000-000000000000; Expires=Tue, 01 Jan 2030 00:00:00 GMT; Path=/; HttpOnly 
+
+    {
+"acceptedTOSVersion": 7,
+"acceptedPrivacyVersion": 0,
+"accountDeletionDate": "1970-01-01",
+"accountDeletionLog": [
+{
+"message": "Deletion requested",
+"deletionScheduled": "1970-01-01T00:00:00.000Z",
+"dateTime": "1970-01-01T00:00:00.000Z"
+}
+],
+"activeFriends": [
+"usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469"
+],
+"ageVerificationStatus": "hidden",
+"ageVerified": false,
+"allowAvatarCopying": false,
+"badges": [
+{
+"assignedAt": "1970-01-01T00:00:00.000Z",
+"badgeDescription": "string",
+"badgeId": "bdg_a60e514a-8cb7-4702-8f24-2786992be1a8",
+"badgeImageUrl": "string",
+"badgeName": "string",
+"hidden": false,
+"showcased": false,
+"updatedAt": "1970-01-01T00:00:00.000Z"
+}
+],
+"bio": "string",
+"bioLinks": [
+"string"
+],
+"currentAvatar": "avtr_912d66a4-4714-43b8-8407-7de2cafbf55b",
+"currentAvatarAssetUrl": "string",
+"currentAvatarImageUrl": "https://api.vrchat.cloud/api/1/file/file_ae46d521-7281-4b38-b365-804b32a1d6a7/1/file",
+"currentAvatarThumbnailImageUrl": "https://api.vrchat.cloud/api/1/image/file_aae83ed9-d42d-4d72-9f4b-9f1e41ed17e1/1/256",
+"currentAvatarTags": [
+"A"
+],
+"date_joined": "1970-01-01",
+"developerType": "none",
+"displayName": "string",
+"emailVerified": false,
+"fallbackAvatar": "avtr_912d66a4-4714-43b8-8407-7de2cafbf55b",
+"friendKey": "string",
+"friends": [
+"usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469"
+],
+"hasBirthday": false,
+"hideContentFilterSettings": false,
+"userLanguage": "string",
+"userLanguageCode": "string",
+"hasEmail": false,
+"hasLoggedInFromClient": false,
+"hasPendingEmail": false,
+"homeLocation": "wrld_ba913a96-fac4-4048-a062-9aa5db092812",
+"id": "usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469",
+"isAdult": false,
+"isBoopingEnabled": false,
+"isFriend": false,
+"last_activity": "1970-01-01T00:00:00.000Z",
+"last_login": "1970-01-01T00:00:00.000Z",
+"last_mobile": "1970-01-01T00:00:00.000Z",
+"last_platform": "standalonewindows",
+"obfuscatedEmail": "string",
+"obfuscatedPendingEmail": "string",
+"oculusId": "string",
+"googleId": "string",
+"googleDetails": { },
+"picoId": "string",
+"viveId": "string",
+"offlineFriends": [
+"usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469"
+],
+"onlineFriends": [
+"usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469"
+],
+"pastDisplayNames": [
+{
+"displayName": "A",
+"updated_at": "1970-01-01T00:00:00.000Z"
+}
+],
+"presence": {
+"avatarThumbnail": "string",
+"currentAvatarTags": "string",
+"displayName": "string",
+"groups": [
+"grp_71a7ff59-112c-4e78-a990-c7cc650776e5"
+],
+"id": "usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469",
+"instance": "string",
+"instanceType": "string",
+"isRejoining": "string",
+"platform": "string",
+"profilePicOverride": "string",
+"status": "string",
+"travelingToInstance": "string",
+"travelingToWorld": "wrld_ba913a96-fac4-4048-a062-9aa5db092812",
+"userIcon": "string",
+"world": "wrld_ba913a96-fac4-4048-a062-9aa5db092812"
+},
+"platform_history": [
+{
+"isMobile": false,
+"platform": "string",
+"recorded": "1970-01-01T00:00:00.000Z"
+}
+],
+"profilePicOverride": "string",
+"profilePicOverrideThumbnail": "string",
+"pronouns": "string",
+"queuedInstance": "string",
+"receiveMobileInvitations": false,
+"state": "offline",
+"status": "active",
+"statusDescription": "string",
+"statusFirstTime": false,
+"statusHistory": [
+"string"
+],
+"steamDetails": { },
+"steamId": "string",
+"tags": [
+"A"
+],
+"twoFactorAuthEnabled": false,
+"twoFactorAuthEnabledDate": "1970-01-01T00:00:00.000Z",
+"unsubscribe": false,
+"updated_at": "1970-01-01T00:00:00.000Z",
+"userIcon": "string"
+}

@@ -1,0 +1,26 @@
+
+Verify 2FA code
+post /auth/twofactorauth/totp/verify
+
+Finishes the login sequence with a normal 2FA-generated code for accounts with 2FA-protection enabled.
+API Key (auth)
+CODE SAMPLES
+
+curl -X POST "https://api.vrchat.cloud/api/1/auth/twofactorauth/totp/verify" \
+     -H "Content-Type: application/json" \
+     -b "auth={authCookie}" \
+     --data '{"code": "string"}'
+
+     {
+  "code": "string"
+}
+
+ Set-Cookie 	string 	
+
+Provides a twoFactorAuth cookie, which can be used to bypasses the 2FA requirement for future logins on the same device.
+	twoFactorAuth=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx; Expires=Tue, 01 Jan 2030 00:00:00 GMT; Path=/; HttpOnly
+
+
+{
+"verified": false
+}
