@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRChat Instances</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>VRChat Instances</h1>
+        <div id="instances-list">
+            {% if instances %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thumbnail</th>
+                            <th>Group</th>
+                            <th>World Name</th>
+                            <th>World Author</th>
+                            <th>Type</th>
+                            <th>Users</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for instance in instances.instances %}
+                        <tr>
+                            <td>
+                                {% if instance.world and instance.world.thumbnailImageUrl %}
+                                    <img src="{{ instance.world.thumbnailImageUrl }}" alt="{{ instance.world.name }} thumbnail" class="thumbnail" style="width: 50px; height: 50px;">
+                                {% elif instance.thumbnailImageUrl %}
+                                    <img src="{{ instance.thumbnailImageUrl }}" alt="Instance thumbnail" class="thumbnail" style="width: 50px; height: 50px;">
+                                {% else %}
+                                    No Thumbnail
+                                {% endif %}
+                            </td>
+                            <td>{{ instance.ownerId }}</td>
+                            <td>
+                                {% if instance.world %}
+                                    {{ instance.world.name }} @ {{ instance.region }}
+                                {% else %}
+                                    {{ instance.name }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if instance.world %}
+                                    {{ instance.world.authorName }}
+                                {% endif %}
+                            </td>
+                            <td>{{ instance.groupAccessType }}</td>
+                            <td>{{ instance.userCount }} / {{ instance.capacity }}</td>
+                            <td>
+                                {% if instance.world %}
+                                    {{ instance.world.description }}
+                                {% else %}
+                                    No Description
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No instances found.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
