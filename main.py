@@ -236,6 +236,42 @@ def friends():
     else:
         return f"Error fetching friends: {response.status_code} - {response.text}", 500
 
+# Function to get user groups
+def get_user_groups(auth_cookie, user_id):
+    headers = {
+        "Cookie": f"auth={auth_cookie}",
+        "User-Agent": USER_AGENT
+    }
+    url = f"{API_BASE_URL}/users/{user_id}/groups"
+    response = requests.get(url, headers=headers)
+    return response
+
+# ... (Your existing routes like /, /verify_2fa, /logout, /friends) ...
+@app.route('/groups')
+def groups():
+    auth_cookie = request.cookies.get('auth')
+    if not auth_cookie:
+        return "Not logged in", 401
+
+    # Get the user's ID. You'll need to fetch this from the API in a real app.
+    # For this example we make a call to /auth/user to get the user id.
+    user_response = login_auth(None, None, f"auth={auth_cookie}")
+    if user_response.status_code != 200:
+        return f"Error getting User data: {user_response.status_code} - {user_response.text}", 500
+    
+    user_data = user_response.json()
+    user_id = user_data["id"]
+
+    response = get_user_groups(auth_cookie, user_id)
+
+    if response.status_code == 200:
+        groups_data = response.json()
+        return render_template('groups.html', groups=groups_data)
+    elif response.status_code == 401:
+        return "Unauthorized - Invalid Auth Cookie", 401
+    else:
+        return f"Error fetching groups: {response.status_code} - {response.text}", 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)

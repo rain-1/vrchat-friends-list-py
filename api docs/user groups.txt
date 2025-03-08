@@ -1,0 +1,38 @@
+
+Get User Groups
+get /users/{userId}/groups
+
+Get user's public groups
+API Key (auth)
+
+
+PATH PARAMETERS
+* userId
+string
+	
+
+Must be a valid user ID.
+
+
+[
+{
+"id": "gmem_95cdb3b4-4643-4eb6-bdab-46a4e1e5ce37",
+"name": "string",
+"shortCode": "ABC123",
+"discriminator": "1234",
+"description": "string",
+"iconId": "string",
+"iconUrl": "string",
+"bannerId": "string",
+"bannerUrl": "string",
+"privacy": "string",
+"lastPostCreatedAt": "1970-01-01T00:00:00.000Z",
+"ownerId": "usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469",
+"memberCount": 0,
+"groupId": "grp_71a7ff59-112c-4e78-a990-c7cc650776e5",
+"memberVisibility": "string",
+"isRepresenting": false,
+"mutualGroup": false,
+"lastPostReadAt": "1970-01-01T00:00:00.000Z"
+}
+]

@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>User Information</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>User Information</h1>
-    <pre>
-        {{ user }}
-    </pre>
-    <a href="/logout">logout</a>
+    <div class="container">
+        <h1>Welcome, {{ user.displayName }}!</h1>
+        <p>User ID: {{ user.id }}</p>
+        <p>Email: {{ user.email }}</p>
+        <a href="/friends">View your friends</a>
+        <a href="/groups">View your groups</a>
+        <a href="/logout">Logout</a>
+    </div>
+
 </body>
 </html>

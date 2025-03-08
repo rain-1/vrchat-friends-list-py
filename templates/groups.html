@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Groups</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Groups</h1>
+        <div id="groups-list">
+            {% if groups %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Icon</th>
+                            <th>Name</th>
+                            <th>Short Code</th>
+                            <th>Description</th>
+                            <th>Member Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for group in groups %}
+                            <tr>
+                                <td>
+                                    {% if group.iconUrl %}
+                                        <img src="{{ group.iconUrl }}" alt="{{ group.name }} Icon" style="width: 50px; height: 50px;">
+                                    {% else %}
+                                        No Icon
+                                    {% endif %}
+                                </td>
+                                <td>{{ group.name }}</td>
+                                <td>{{ group.shortCode }}</td>
+                                <td>{{ group.description }}</td>
+                                <td>{{ group.memberCount }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>You are not a member of any groups.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
