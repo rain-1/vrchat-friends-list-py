@@ -35,7 +35,13 @@
                                     No Thumbnail
                                 {% endif %}
                             </td>
-                            <td>{{ instance.ownerId }}</td>
+                            <td>
+                                {% if instance.ownerId in group_id_to_name %}
+                                    {{ group_id_to_name[instance.ownerId] }}
+                                {% else %}
+                                    {{ instance.ownerId }}
+                                {% endif %}
+                            </td>
                             <td>
                                 {% if instance.world %}
                                     {{ instance.world.name }} @ {{ instance.region }}

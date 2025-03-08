@@ -93,6 +93,16 @@ def get_user_groups(auth_cookie, user_id):
     response = requests.get(url, headers=headers)
     return response
 
+# Function to get instance data
+def get_instance_data(auth_cookie, instance_id):
+    headers = {
+        "Cookie": f"auth={auth_cookie}",
+        "User-Agent": USER_AGENT
+    }
+    url = f"{API_BASE_URL}/instances/{instance_id}"
+    response = requests.get(url, headers=headers)
+    return response
+
 # Function to get user instances
 def get_user_instances(auth_cookie, user_id):
     headers = {
@@ -293,16 +303,41 @@ def instances():
     
     user_data = user_response.json()
     user_id = user_data["id"]
+
+    # Fetch user's groups to create a group ID to group name mapping
+    groups_response = get_user_groups(auth_cookie, user_id)
+    # pretty print dump groups_response
+    print(json.dumps(groups_response.json(), indent=4))
+
+    group_id_to_name = {}
+    if groups_response.ok:
+        groups_data = groups_response.json()
+        for group in groups_data:
+            group_id_to_name[group['groupId']] = group['name']
+    else:
+        print(f"Warning: Could not fetch groups data. Group names will not be shown. Response: {groups_response.status_code} - {groups_response.text}")
+
+    # Get the user instances
     response = get_user_instances(auth_cookie, user_id)
     
     if response.status_code == 200:
         instances_data = response.json()
-        print(json.dumps(instances_data))
-        return render_template('instances.html', instances=instances_data)
+        #print(json.dumps(instances_data))
+        return render_template('instances.html', instances=instances_data, group_id_to_name=group_id_to_name)
     elif response.status_code == 401:
         return "Unauthorized - Invalid Auth Cookie", 401
     else:
         return f"Error fetching instances: {response.status_code} - {response.text}", 500
+
+# Function to get instance data
+def get_instance_data(auth_cookie, instance_id):
+    headers = {
+        "Cookie": f"auth={auth_cookie}",
+        "User-Agent": USER_AGENT
+    }
+    url = f"{API_BASE_URL}/instances/{instance_id}"
+    response = requests.get(url, headers=headers)
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
