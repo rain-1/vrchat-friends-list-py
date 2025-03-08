@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Friends</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Friends</h1>
+        <div id="friends-list">
+            {% if friends %}
+                {% for friend in friends %}
+                    {% if friend.location != "offline" %}
+                        <div class="friend-item">
+                            <img src="{{ friend.currentAvatarThumbnailImageUrl }}" alt="{{ friend.displayName }}'s Avatar">
+                            <p><strong>{{ friend.displayName }}</strong></p>
+                            <p>Status: {{ friend.status }}</p>
+                            <p>Location: {{ friend.location }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No friends found.</p>
+            {% endif %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='friends.js') }}"></script>
+</body>
+</html>

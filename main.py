@@ -4,8 +4,10 @@ import urllib.parse
 import requests
 import os
 from datetime import datetime, timedelta
+import json
 
-app = Flask(__name__)
+#app = Flask(__name__)
+app = Flask(__name__, static_url_path='/assets', static_folder='static')
 
 # Replace with your actual API base URL if different
 API_BASE_URL = "https://api.vrchat.cloud/api/1"
@@ -70,7 +72,17 @@ def logout_auth(auth_cookie):
     url = f"{API_BASE_URL}/logout"
     response = requests.put(url, headers=headers)
     return response
-    
+
+#Function to get Friends list
+def get_friends(auth_cookie):
+    headers = {
+        "Cookie": f"auth={auth_cookie}",
+        "User-Agent": USER_AGENT
+    }
+    url = f"{API_BASE_URL}/auth/user/friends?offline=false"
+    response = requests.get(url, headers=headers)
+    print(json.dumps(response.json()))
+    return response
 
 # Route for the login page
 @app.route('/', methods=['GET', 'POST'])
@@ -208,6 +220,21 @@ def logout():
     response.set_cookie('twoFactorAuth','',expires=0)
     return response
 
+@app.route('/friends')
+def friends():
+    auth_cookie = request.cookies.get('auth')
+    if not auth_cookie:
+        return "Not logged in", 401
+
+    response = get_friends(auth_cookie)
+
+    if response.status_code == 200:
+        friends_data = response.json()
+        return render_template('friends.html', friends=friends_data)
+    elif response.status_code == 401:
+        return "Unauthorized - Invalid Auth Cookie", 401
+    else:
+        return f"Error fetching friends: {response.status_code} - {response.text}", 500
 
 
 if __name__ == '__main__':
