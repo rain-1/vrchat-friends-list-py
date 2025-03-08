@@ -14,7 +14,11 @@
                 {% for friend in friends %}
                     {% if friend.location != "offline" %}
                         <div class="friend-item">
-                            <img src="{{ friend.currentAvatarThumbnailImageUrl }}" alt="{{ friend.displayName }}'s Avatar">
+                            {% if friend.profilePicOverrideThumbnail %}
+                                <img src="{{ friend.profilePicOverrideThumbnail }}" alt="{{ friend.displayName }}'s Avatar">
+                            {% else %}
+                                <img src="{{ friend.currentAvatarThumbnailImageUrl }}" alt="{{ friend.displayName }}'s Avatar">
+                            {% endif %}
                             <p><strong>{{ friend.displayName }}</strong></p>
                             <p>Status: {{ friend.status }}</p>
                             <p>Location: {{ friend.location }}</p>
