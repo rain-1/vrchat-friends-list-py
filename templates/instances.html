@@ -5,68 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VRChat Instances</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center; /* Center the cards horizontally */
+            padding: 20px;
+        }
+
+        .instance-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px; /* Adjust as needed */
+            background-color: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column; /* Stack content vertically */
+        }
+
+        .instance-card .thumbnail-container {
+            width: 100%;
+            height: 150px; /* Adjust as needed */
+            overflow: hidden;
+        }
+        .instance-card .thumbnail-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .instance-card .card-content {
+            padding: 15px;
+            flex-grow: 1; /* Allow content to grow */
+            display: flex;
+            flex-direction: column; /* Stack content vertically */
+        }
+
+        .instance-card h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+
+        .instance-card p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+        .instance-card .group-name {
+          font-style: italic;
+          color: #555;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>VRChat Instances</h1>
-        <div id="instances-list">
+        <div id="instances-list" class="card-container">
             {% if instances %}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Thumbnail</th>
-                            <th>Group</th>
-                            <th>World Name</th>
-                            <th>World Author</th>
-                            <th>Type</th>
-                            <th>Users</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for instance in instances.instances %}
-                        <tr>
-                            <td>
-                                {% if instance.world and instance.world.thumbnailImageUrl %}
-                                    <img src="{{ instance.world.thumbnailImageUrl }}" alt="{{ instance.world.name }} thumbnail" class="thumbnail" style="width: 50px; height: 50px;">
-                                {% elif instance.thumbnailImageUrl %}
-                                    <img src="{{ instance.thumbnailImageUrl }}" alt="Instance thumbnail" class="thumbnail" style="width: 50px; height: 50px;">
-                                {% else %}
-                                    No Thumbnail
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if instance.ownerId in group_id_to_name %}
-                                    {{ group_id_to_name[instance.ownerId] }}
-                                {% else %}
-                                    {{ instance.ownerId }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if instance.world %}
-                                    {{ instance.world.name }} @ {{ instance.region }}
-                                {% else %}
-                                    {{ instance.name }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if instance.world %}
-                                    {{ instance.world.authorName }}
-                                {% endif %}
-                            </td>
-                            <td>{{ instance.groupAccessType }}</td>
-                            <td>{{ instance.userCount }} / {{ instance.capacity }}</td>
-                            <td>
-                                {% if instance.world %}
-                                    {{ instance.world.description }}
-                                {% else %}
-                                    No Description
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                {% for instance in instances.instances %}
+                <div class="instance-card">
+                    <div class="thumbnail-container">
+                        {% if instance.world and instance.world.thumbnailImageUrl %}
+                            <img src="{{ instance.world.thumbnailImageUrl }}" alt="{{ instance.world.name }} thumbnail" class="thumbnail">
+                        {% elif instance.thumbnailImageUrl %}
+                            <img src="{{ instance.thumbnailImageUrl }}" alt="Instance thumbnail" class="thumbnail">
+                        {% else %}
+                            <div style="width: 100%; height: 100%; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                              No Thumbnail
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-content">
+                        {% if instance.world %}
+                            <h3>{{ instance.world.name }} @ {{ instance.region }}</h3>
+                        {% else %}
+                            <h3>{{ instance.name }}</h3>
+                        {% endif %}
+                        
+                        <p class="group-name">
+                          {% if instance.ownerId in group_id_to_name %}
+                            {{ group_id_to_name[instance.ownerId] }}
+                          {% else %}
+                            {{ instance.ownerId }}
+                          {% endif %}
+                        </p>
+
+                        {% if instance.world %}
+                          <p><b>Author:</b> {{ instance.world.authorName }}</p>
+                        {% endif %}
+                        <p><b>Type:</b> {{ instance.groupAccessType }}</p>
+                        <p><b>Users:</b> {{ instance.userCount }} / {{ instance.capacity }}</p>
+                        {% if instance.world %}
+                            <p><b>Description:</b> {{ instance.world.description }}</p>
+                        {% else %}
+                            <p>No Description</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
             {% else %}
                 <p>No instances found.</p>
             {% endif %}
