@@ -79,7 +79,7 @@
                     </div>
                     <div class="card-content">
                         {% if instance.world %}
-                            <h3>{{ instance.world.name }} @ {{ instance.region }}</h3>
+                            <h3><a href="https://vrchat.com/home/launch?worldId={{instance.world.id}}">{{ instance.world.name }} @ {{ instance.region }}</a></h3>
                         {% else %}
                             <h3>{{ instance.name }}</h3>
                         {% endif %}
