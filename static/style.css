@@ -122,3 +122,32 @@ a {
   color: #555;
 }
 
+
+.thumbnail{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+/* Friend Styling */
+.friend-card {
+    background-color: rgb(37,42,48); /*foreground A*/
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    display: flex; /* to make it compact, with image on the left */
+    align-items: center; /* vertically center content */
+    gap: 10px;
+}
+
+.friend-name {
+    color: rgb(248, 249, 250);
+    margin: 0;
+}
+
+.friend-status,
+.friend-location {
+    margin: 0;
+    font-size: 0.9em; /* Slightly smaller for details */
+}
+

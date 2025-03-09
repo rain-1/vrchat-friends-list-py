@@ -9,19 +9,23 @@
 <body>
     <div class="container">
         <h1>Your Friends</h1>
-        <div id="friends-list">
+        <div id="friends-list" class="friend-card-container">
             {% if friends %}
                 {% for friend in friends %}
                     {% if friend.location != "offline" %}
-                        <div class="friend-item">
-                            {% if friend.profilePicOverrideThumbnail %}
-                                <img src="{{ friend.profilePicOverrideThumbnail }}" alt="{{ friend.displayName }}'s Avatar">
-                            {% else %}
-                                <img src="{{ friend.currentAvatarThumbnailImageUrl }}" alt="{{ friend.displayName }}'s Avatar">
-                            {% endif %}
-                            <p><strong>{{ friend.displayName }}</strong></p>
-                            <p>Status: {{ friend.status }}</p>
-                            <p>Location: {{ friend.location }}</p>
+                        <div class="friend-card">
+                            <div class="thumbnail-container">
+                                {% if friend.profilePicOverrideThumbnail %}
+                                    <img src="{{ friend.profilePicOverrideThumbnail }}" alt="{{ friend.displayName }}'s Avatar" class="thumbnail">
+                                {% else %}
+                                    <img src="{{ friend.currentAvatarThumbnailImageUrl }}" alt="{{ friend.displayName }}'s Avatar" class="thumbnail">
+                                {% endif %}
+                            </div>
+                            <div class="friend-card-content">
+                                <p class="friend-name"><strong>{{ friend.displayName }}</strong></p>
+                                <p class="friend-status">Status: {{ friend.status }}</p>
+                                <p class="friend-location">Location: {{ friend.location }}</p>
+                            </div>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -30,6 +34,5 @@
             {% endif %}
         </div>
     </div>
-    <script src="{{ url_for('static', filename='friends.js') }}"></script>
 </body>
 </html>
