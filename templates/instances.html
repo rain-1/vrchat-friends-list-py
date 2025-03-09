@@ -84,11 +84,11 @@
                             <h3>{{ instance.name }}</h3>
                         {% endif %}
                         
-                        <p class="group-name">
+                        <p>
                           {% if instance.ownerId in group_id_to_name %}
-                            {{ group_id_to_name[instance.ownerId] }}
+                            <b>Group:</b> <a href="https://vrchat.com/home/group/{{instance.ownerId}}">{{ group_id_to_name[instance.ownerId] }}</a>
                           {% else %}
-                            {{ instance.ownerId }}
+                            <b>Ownder:</b> {{ instance.ownerId }}
                           {% endif %}
                         </p>
 
