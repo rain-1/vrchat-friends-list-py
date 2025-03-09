@@ -5,59 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VRChat Instances</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center; /* Center the cards horizontally */
-            padding: 20px;
-        }
-
-        .instance-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 300px; /* Adjust as needed */
-            background-color: #fff;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column; /* Stack content vertically */
-        }
-
-        .instance-card .thumbnail-container {
-            width: 100%;
-            height: 150px; /* Adjust as needed */
-            overflow: hidden;
-        }
-        .instance-card .thumbnail-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .instance-card .card-content {
-            padding: 15px;
-            flex-grow: 1; /* Allow content to grow */
-            display: flex;
-            flex-direction: column; /* Stack content vertically */
-        }
-
-        .instance-card h3 {
-            margin-top: 0;
-            margin-bottom: 5px;
-            font-size: 1.2em;
-        }
-
-        .instance-card p {
-            margin: 5px 0;
-            font-size: 0.9em;
-        }
-        .instance-card .group-name {
-          font-style: italic;
-          color: #555;
-        }
-    </style>
 </head>
 <body>
     <div class="container">

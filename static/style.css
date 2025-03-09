@@ -1,22 +1,124 @@
-.container{
-    width:80%;
-    margin: auto;
-}
-#friends-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+/* General Page Styling (based on theme.txt) */
+body {
+  background-color: rgb(14, 16, 19); /* background color */
+  color: rgb(142, 142, 140); /* body text */
+  font-family: VRCCustom, "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /*Added a default font-family*/
 }
 
-.friend-item {
-    border: 1px solid #ccc;
+@font-face{
+    font-family:"VRCCustom";
+    src:url(https://dtuitjyhwcl5y.cloudfront.net/8d9094445fec54676bbab61b9028bf5fb7f2a7f4ad094e6e740fc387f037e1b1.woff2) format("woff2"),url(https://dtuitjyhwcl5y.cloudfront.net/45defec41a15e2ed9509768b65f1658c2093ff7da58e41994639998b33e878df.woff) format("woff"),url(https://dtuitjyhwcl5y.cloudfront.net/b11cc5eb1e94ee908e34eadff2751af48415712d0173583618b30436f76286de.otf) format("opentype");
+    unicode-range:U+E000-E0FF
+};
+
+/* Header Styling (based on theme.txt) */
+header {
+  background-color: rgb(7, 36, 43); /* header box */
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  color: rgb(248, 249, 250); /* header text */
+  margin: 0;
+}
+
+/* Instance List Styling*/
+.instance-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.instance-item{
+    background-color: rgb(37,42,48); /*foreground A*/
     padding: 10px;
-    text-align: center;
+    border-radius: 5px;
+}
+.instance-info{
+    background-color: rgb(24,27,31); /*foreground B*/
+    padding: 5px;
+    border-radius: 5px;
 }
 
-.friend-item img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 10%;
+/* Button Styling (based on theme.txt) */
+.join-button {
+  background-color: rgb(6, 75, 92); /* button box */
+  color: white; /* default button text color, could be added to THEME.txt*/
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 5px;
 }
+
+.join-button:hover{
+    opacity: 0.9;
+}
+
+/* Link Styling (based on theme.txt) */
+.instance-link {
+  color: rgb(14, 155, 177); /* link text */
+  text-decoration: none;
+}
+a:visited {
+  color: rgb(14, 155, 177); /* link text */
+}
+a {
+  color: rgb(14, 155, 177); /* link text */
+  text-decoration: none;
+}
+
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Center the cards horizontally */
+    padding: 20px;
+}
+
+.instance-card {
+    /* border: 1px solid #ddd; */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Adjust as needed */
+    background-color: rgb(37,42,48); /*foreground A*/
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+}
+
+.instance-card .thumbnail-container {
+    width: 100%;
+    height: 150px; /* Adjust as needed */
+    overflow: hidden;
+}
+.instance-card .thumbnail-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.instance-card .card-content {
+    padding: 15px;
+    flex-grow: 1; /* Allow content to grow */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+}
+
+.instance-card h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.instance-card p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+.instance-card .group-name {
+  font-style: italic;
+  color: #555;
+}
+

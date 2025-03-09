@@ -1,1 +1,8 @@
-background color: 
+background color: 14,16,19
+foreground A: 37,42,48
+foreground B: 24,27,31
+button box: 6,75,92
+header box: 7,36,43
+header text: 248,249,250
+body text: 142,142,140
+link text: 14,155,177
